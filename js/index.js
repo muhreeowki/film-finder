@@ -1,11 +1,26 @@
-let movieNameRef = document.getElementById("movie-name");
-let searchBtn = document.getElementById("search-button");
-let result = document.getElementById("result");
+const movieNameRef = document.getElementById("movie-name");
+const movieYearRef = document.getElementById("movie-year");
+const searchBtn = document.getElementById("search-button");
+const result = document.getElementById("result");
+
+// Helper function to validate year
+const checkYear = (year) => {
+  const today = new Date();
+  if (year > 1874 && year <= today.getFullYear()) {
+    return true;
+  } else {
+    return false;
+  }
+};
 
 // funtion to fetch data from api
 const getMovieData = () => {
-  let movieName = movieNameRef.value;
-  let url = `${apiKey}${movieName}`;
+  const movieName = movieNameRef.value;
+  const movieYear = Number(movieYearRef.value);
+  console.log(checkYear(movieYear));
+  const url = checkYear(movieYear)
+    ? `${apiKey}${movieName}&y=${movieYear}`
+    : `${apiKey}${movieName}`;
 
   // Check if input is empty
   if (movieName.length <= 0) {
@@ -20,10 +35,10 @@ const getMovieData = () => {
         if (data.Response === "True") {
           result.innerHTML = `<div class="info">
           <img class="poster" src="${data.Poster}" alt="${data.Title} Poster" />
-          <div>
+          <div class="info-text">
             <h2>${data.Title}</h2>
             <div class="rating">
-              <img src="./star-icon.svg" alt="star" />
+              <img src="./assets/star-icon.svg" alt="star" />
               <h4>${data.imdbRating}</h4>
             </div>
             <div class="details">
@@ -34,13 +49,13 @@ const getMovieData = () => {
             <div class="genre">
               <div>${data.Genre.split(",").join("</div><div>")}</div>
             </div>
+              <h3>Plot</h3>
+              <p>${data.Plot}</p>
+              <h3>Cast</h3>
+              <p>${data.Actors}</p>
           </div>
         </div>
-          <h3>Plot</h3>
-          <p>${data.Plot}</p>
-          <h3>Cast</h3>
-          <p>${data.Actors}</p>
-          `
+          `;
         } else {
           result.innerHTML = `<h3 class="message">${data.Error}</h3>`;
         }

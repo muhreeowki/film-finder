@@ -6,29 +6,31 @@
     font-family: 'Inter';
 }
 
+:root, html, body {
+    height: 100%;
+}
+
 body {
-    height: 100vh;
     background-color: #2f2c2a;
+    display: flex;
+    justify-content: center;
 }
 
 .container {
+    margin: 1.5rem 0;
     font-size: 16px;
     width: 90vw;
-    max-width: 650px ;
+    height: fit-content;
+    max-width: 800px ;
     padding: 3em 1.8em;
     background-color: #1c1917;
-    position: absolute;
-    transform: translate(-50%, -50%);
-    top: 50%;
-    left: 50%;
     border-radius: .6em;
     box-shadow: 1em 1.5em 2em rgba(0, 0, 0, 0.34);
 }
 
 #search-container {
-    display: grid;
-    grid-template-columns: 9fr 3fr;
-    gap: 1.2em;
+    display: flex;
+    gap: .6rem;
 }
 
 #search-container input, #search-container button {
@@ -48,12 +50,21 @@ body {
     border-color: #fff ;
 }
 
+#movie-name {
+    width: 50%;
+}
+
+#movie-year {
+    width: 30%;
+}
+
 #search-container button {
     background-color: #2f2c2a;
     color: #a0a0a0;
     border: none;
     cursor: pointer;
     transition: .3s ease-in-out;
+    width: 20%;
 }
 
 #search-container button:hover {
@@ -66,9 +77,11 @@ body {
 }
 
 .info {
+
     position: relative;
-    display: grid;
-    grid-template-columns: 4fr 8fr;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin: 1.2em;
 }
 
@@ -141,6 +154,23 @@ p {
 
 .message {
     text-align: center;
+}
+
+.info-text {
+    padding: 0 1.5rem;
+}
+
+@media screen and (max-width: 800px) {
+    .info {
+        flex-direction: column;
+        padding-top: 1.5rem;
+        gap: 1.2rem;
+    }
+
+    .poster {
+        max-height: 300px;
+        width: auto;
+    }
 }
 
 @media screen and (max-width: 600px) {
