@@ -69,3 +69,8 @@ const getMovieData = () => {
 
 searchBtn.onclick = () => getMovieData();
 window.onload = () => getMovieData();
+window.onkeydown = (e) => {
+  if(e.key == "Enter" && movieNameRef !== '') {
+    getMovieData()
+  }
+}
